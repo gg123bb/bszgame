@@ -1,8 +1,21 @@
-JAVACFLAGS ?= -Xlint:deprecation
+# settings
+CC ?= cc
+AR ?= ar
+OUTPATH ?= bin/bszgame
+
+CFLAGS ?= -Wall -Wextra -O3 -ggdb -I./external/raylib/src
+LDFLAGS ?= -L./bin -l:libraylib.a -lm -lX11
+
+$(OUTPATH): src/main.c bin/libraylib.a | bin
+	$(CC) $(CFLAGS) $< $(LDFLAGS) -o $@
 
 .PHONY: run
-run: bszgame/Main.class
-	java bszgame.Main
+run: $(OUTPATH)
+	@$(OUTPATH)
 
-bszgame/Main.class: bszgame/Main.java
-	javac $(JAVACFLAGS) $<
+bin/libraylib.a external/raylib/src/libraylib.a: external/raylib/src/Makefile | bin
+	make -C external/raylib/src CC=$(CC) AR=$(AR)
+	mv external/raylib/src/libraylib.a $@
+
+bin:
+	mkdir -p $@
