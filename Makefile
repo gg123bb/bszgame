@@ -1,15 +1,8 @@
-JAVACFLAGS ?= -d bin/
-JAVAFLAGS ?= -classpath bin/
+JAVACFLAGS ?= -Xlint:deprecation
 
 .PHONY: run
-run: bszgame.jar
-	java -jar bszgame.jar
+run: bszgame/Main.class
+	java bszgame.Main
 
-bszgame.jar: bin/Main.class
-	jar -cf $@ $^
-
-bin/Main.class: src/Main.java | bin
+bszgame/Main.class: bszgame/Main.java
 	javac $(JAVACFLAGS) $<
-
-bin:
-	mkdir -p $@
