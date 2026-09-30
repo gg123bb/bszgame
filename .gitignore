@@ -1,1 +1,7 @@
 bin
+# Windows toolchain, fetched by tools/setup-windows.ps1 (not committed)
+external/w64devkit/
+external/*.7z.exe
+
+# IDE
+.idea/

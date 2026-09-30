@@ -14,6 +14,10 @@
 
 ## How to build
 
+Raylib is vendored as a git submodule. If you didn't clone with
+`--recursive`, the build fetches it automatically; you can also do it
+manually with `git submodule update --init --recursive`.
+
 ### Linux
 
 ```shell
@@ -23,9 +27,20 @@ make run # run it.
 
 ### Windows
 
-```shell
-# TODO find out how to build on windows.
+Only `git` is required — no compiler to install. On the first run,
+`build.bat` downloads a portable toolchain (w64devkit, ~90 MB) into
+`external/w64devkit`; after that it just builds and runs.
+
+```powershell
+git clone --recursive <repo-url>
+cd bszgame
+.\build.bat   # in PowerShell the leading .\ is required
 ```
+
+Or just double-click `build.bat` in Explorer.
+
+<sub>Advanced: to fetch the toolchain manually without building, run
+`powershell -ExecutionPolicy Bypass -File tools\setup-windows.ps1`.</sub>
 
 ## Conventions
 
